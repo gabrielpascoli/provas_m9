@@ -34,18 +34,18 @@ func main() {
 	// Loop para publicar mensagens continuamente
 	go func() {
 		for {
-			zl1, zl2 := lerSensor()
-			message := fmt.Sprintf("Leitura do sensor: PM2.5 %.2f (µg/m³), PM10 %.2f (µg/m³)", zl1, zl2)
+			zl1, zl2 := lertemperatura()
+			message := fmt.Sprintf("Leitura do freazer: PM2.5 %.2f (°C), PM10 %.2f (°C)", zl1, zl2)
 			token := client.Publish("test/topic", 0, false, message)
 			token.Wait()
 			fmt.Printf("Publicado: %s\n", message)
 			time.Sleep(5 * time.Second)
-		}
+			
 	}()
 
 	// Aguarde um sinal de interrupção
 	<-signalChannel
-	fmt.Println("Publicação encerrada")
+	fmt.Println("leitura encerada")
 }
 
 // lerSensor simula a leitura do sensor
